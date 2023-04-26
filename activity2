@@ -1,0 +1,5 @@
+
+
+SELECT CONCAT (fname, " ", lname) AS FullName,
+schedule.session, schedule.activity, schedule.date, schedule.timestart
+FROM (client INNER JOIN schedule ON client.client_id = schedule.sched_id);
