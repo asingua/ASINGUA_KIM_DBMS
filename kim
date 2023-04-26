@@ -1,0 +1,85 @@
+DROP DATABASE gymmanagement;
+CREATE DATABASE gymmanagement;
+use gymmanagement;
+
+CREATE TABLE client (
+	client_id int PRIMARY KEY AUTO_INCREMENT,
+    fname varchar(255),
+    lname varchar(255),
+    gender ENUM ('female','male') DEFAULT 'male',
+    age int,
+    contact_add varchar(255),
+    email varchar(255),
+    password varchar(255)
+
+);
+
+CREATE TABLE transaction_records(
+	trans_id INT PRIMARY KEY AUTO_INCREMENt,
+    transname varchar(255),
+    client_id int,
+    amount int,
+    date date,
+    CONSTRAINT FKclientID FOREIGN KEY (client_id)
+    REFERENCES client(client_id)
+
+
+);
+
+CREATE TABLE reports(
+	report_id INT PRIMARY KEY AUTO_INCREMENT,
+    total_amount varchar (255),
+    date date,
+    client_id int,
+    trans_id int,    
+	CONSTRAINT FKreportclientID FOREIGN KEY (client_id)
+    REFERENCES client(client_id),
+	CONSTRAINT FKtransID FOREIGN KEY (trans_id)
+    REFERENCES transaction_records(trans_id)
+
+);
+
+CREATE TABLE schedule(
+    sched_id INT PRIMARY KEY AUTO_INCREMENT,
+    client_id int,
+    session varchar (255),
+    activity varchar (255),
+    date date,
+    timestart time,
+    timeend time,
+    CONSTRAINT FKschedclientID FOREIGN KEY (client_id)
+    REFERENCES client (client_id)
+);
+
+CREATE TABLE trainor(
+    trainor_id INT PRIMARY KEY AUTO_INCREMENT,
+    name varchar (255),
+    salary int,
+    emails varchar (255),
+    password varchar (255)
+);
+
+CREATE TABLE purchase(
+    payment_id INT PRIMARY KEY AUTO_INCREMENT,
+    client_id int,
+    date date,
+    amount int,
+    CONSTRAINT FKpaymentclientID FOREIGN KEY (client_id)
+    REFERENCES client (client_id)
+);
+
+CREATE TABLE membership(
+    mem_id INT PRIMARY KEY AUTO_INCREMENT,
+    client_id int,
+    status varchar (255),
+    date date,
+    CONSTRAINT FKmemberclientID FOREIGN KEY (client_id)
+    REFERENCES client (client_id)
+);
+
+INSERT INTO client (client_id, fname, lname) VALUES (1, "kim", "asingua");
+INSERT INTO schedule (session, activity, date, timestart) VALUES ("Session 1", "pushup (jogging)", "2020-05-20", "05:00");
+INSERT INTO trainor (name) VALUES ("hatdog");
+INSERT INTO reports (total_amount) VALUES ("7,000 pesos");
+INSERT INTO purchase (amount) VALUES (7000);
+INSERT INTO membership (status) VALUES ("ACTIVE");
