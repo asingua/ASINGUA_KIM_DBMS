@@ -1,0 +1,33 @@
+
+CREATE DATABASE databasemanage;
+USE databasemanage;
+
+CREATE TABLE students(
+    StudNo varchar (6),
+    StudFName varchar (255),
+    StudLName varchar (255),
+    Major varchar (255),
+    Gender varchar (255),
+    HomeAddress varchar (255),
+    PRIMARY KEY (StudNo)
+    );
+CREATE TABLE subject(
+    SubjectCode varchar (255),
+    StudentDescr varchar (255),
+    PRIMARY KEY (SubjectCode)
+
+);
+
+CREATE TABLE grade(
+    SubjectCode varchar (255),
+    StudNo varchar (6),
+    grade float,
+    CONSTRAINT FK_StudNo FOREIGN KEY (StudNo)
+    REFERENCES students (StudNo),
+    CONSTRAINT FK_SubjectCode FOREIGN KEY (SubjectCode)
+    REFERENCES subject (SubjectCode)
+);
+
+INSERT INTO students (StudNo,StudFName,StudLName,Major,Gender,HomeAddress) VALUE ('S-101','Ana','Cruz','ECE','F','Malolos,Bulacan'),('S-102','Hazel','Ponce','COE','F','Plaridel,Bulacan'),('S-103','Cristov','Concio','ECE','M','Malolos,Bulacan'),('S-104','Aris','Clavio','COE','M','Pulilan,Bulacan'),('S-105','Honey','Pelayo','COE','F','Plaridel,Bulacan'),('S-106','Carrie','Abao','ECE','F','Pulilan,Bulacan');
+INSERT INTO subject (SubjectCode,StudentDescr) VALUE ('Chem123','Chemistry'),('Math122','Trigonometry'),('Math123','Algebra');
+INSERT INTO grade (StudNo,SubjectCode,grade) VALUE ('S-101','Chem123',2.00),('S-101','Math122',1.00),('S-101','Math123',1.50),('S-102','Chem123',1.75),('S-102','Math122',1.25),('S-102','Math123',1.50),('S-103','Chem123',2.00),('S-103','Math122',1.75),('S-103','Math123',1.25),('S-104','Chem123',1.25),('S-104','Math122',2.25),('S-104','Math123',2.50),('S-105','Chem123',1.00),('S-105','Math122',1.25),('S-105','Math123',2.50),('S-106','Chem123',1.25),('S-106','Math122',1.50),('S-106','Math123',1.75);
